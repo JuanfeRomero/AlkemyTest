@@ -1,27 +1,37 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import './App.scss';
+import Header from './ui-components/Header';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Movements from './pages/Movements';
 
 function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/balance'>ABM</Link>
-            </li>
-            <li>
-              <Link to='/login'>Login</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </Router>
-  );
+    let isLogged = true;
+
+    return (
+        <Router>
+            <div className="navbar">
+                <Header isLogged={isLogged} />
+            </div>
+            <Route exact path="/">
+                {isLogged ? (
+                    <Redirect to="/movements" />
+                ) : (
+                    <Redirect to="/login" />
+                )}
+            </Route>
+            <Route path="/movements">
+                {isLogged ? <Movements /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/login">
+                {isLogged ? <Redirect to="/movements" /> : <Login />}
+            </Route>
+            <Route path="/signup">
+                {isLogged ? <Redirect to="/movements" /> : <Signup />}
+            </Route>
+        </Router>
+    );
 }
 
 export default App;

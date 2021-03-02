@@ -1,0 +1,15 @@
+@import 'node_modules/bootstrap/scss/bootstrap'; //existing bootstrap import
+
+:root{
+  --background: #dddddd;
+  --text: #000000
+}
+
+html, body{
+  background-color: var(--background);
+  transition: 0.2s ease-in-out;
+  color: var(--text)
+}
+.navbar {
+  padding-bottom: 69px;
+}
